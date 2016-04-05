@@ -1,0 +1,160 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "microsoft yahei";
+  font-size: 14px; }
+
+body {
+  min-width: 915px; }
+
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0; }
+
+.header {
+  color: #fff;
+  height: 50px;
+  background-color: #21e7c9; }
+  .header .logo {
+    width: 100px;
+    font-size: 30px;
+    margin-left: 50px;
+    line-height: 50px;
+    float: left; }
+  .header .index {
+    list-style-type: none;
+    margin-right: 50px; }
+    .header .index li {
+      font-size: 16px;
+      float: right;
+      padding: 10px;
+      line-height: 20px;
+      cursor: pointer;
+      vertical-align: middle; }
+      .header .index li:hover {
+        border-bottom: 2px solid #fff; }
+      .header .index li.search:hover {
+        border-bottom: 0px; }
+      .header .index li.search .search-text {
+        background-color: #21e7c9;
+        border: 1px solid #fff;
+        width: 200px;
+        border-radius: 5px;
+        font-size: 10px; }
+
+.img {
+  height: 690px;
+  width: 1350px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc; }
+  .img:hover .arrow {
+    display: block; }
+  .img .list {
+    position: absolute;
+    z-index: 1;
+    height: 690px;
+    width: 6750px;
+    overflow: hidden; }
+    .img .list li {
+      list-style-type: none;
+      float: left; }
+      .img .list li div {
+        width: 1350px;
+        height: 690px; }
+  .img #buttons {
+    position: absolute;
+    width: 50px;
+    z-index: 2;
+    height: 15px;
+    left: 600px;
+    bottom: 10px;
+    display: inline-block; }
+    .img #buttons span {
+      cursor: pointer;
+      float: left;
+      border: 1px solid #fff;
+      margin-left: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #333; }
+    .img #buttons .on {
+      background-color: #ccc; }
+  .img .arrow {
+    cursor: pointer;
+    display: none;
+    line-height: 39px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    width: 25px;
+    text-decoration: none;
+    position: absolute;
+    z-index: 2;
+    top: 180px;
+    background-color: RGBA(0, 0, 0, 0.3);
+    color: #fff; }
+    .img .arrow:hover {
+      background-color: RGBA(0, 0, 0, 0.7); }
+  .img #prev {
+    left: 20px; }
+  .img #next {
+    right: 20px; }
+
+.show {
+  width: 750px;
+  border: 1px solid #ccc;
+  margin: auto; }
+  .show .re-show {
+    list-style: none; }
+    .show .re-show .re-li-show {
+      border-bottom: 1px dashed #ccc; }
+      .show .re-show .re-li-show .re-li-cont {
+        display: inline-block;
+        width: 630px; }
+        .show .re-show .re-li-show .re-li-cont .re-title {
+          padding-left: 5px; }
+        .show .re-show .re-li-show .re-li-cont .re-cont-detail {
+          word-wrap: break-word;
+          word-break: normal;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+          overflow: hidden; }
+      .show .re-show .re-li-show .re-cont-img {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: 100px;
+        height: 100px;
+        background-color: #EE867F;
+        display: inline-block;
+        border-radius: 10px;
+        border: 1px solid #ccc; }
+    .show .re-show .re-footer {
+      width: 630px;
+      color: #ccc; }
+      .show .re-show .re-footer .footer-left {
+        float: left;
+        padding: 2px;
+        width: 300px; }
+        .show .re-show .re-footer .footer-left a {
+          color: #ccc;
+          display: inline-block; }
+        .show .re-show .re-footer .footer-left .l {
+          padding: 2px 10px; }
+        .show .re-show .re-footer .footer-left .public-tab {
+          background-color: #B2B2B2;
+          border-radius: 5px; }
+      .show .re-show .re-footer .footer-right {
+        padding: 2px;
+        float: right;
+        width: 150px; }
+        .show .re-show .re-footer .footer-right .r {
+          font-style: normal;
+          display: inline-block;
+          padding: 2px 10px; }
+
+/*# sourceMappingURL=styles.css.map */
