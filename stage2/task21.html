@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task20</title>
+	<style type="text/css">
+	#hobby-cont,#tag-cont{
+		margin: 10px;
+
+	}
+	span{
+
+		text-align: center;
+		display: inline-block; 
+		padding:10px;
+		color: #838458;
+		font: 14px "微软雅黑";
+		border:1px solid #eee;
+		background-color: #D75060;
+		opacity: .6;
+		margin-left:10px;
+		line-height: 20px;
+		color:#fff;
+		border-radius: 5px;
+
+	}
+	#button{
+		display: inline-block;
+	}
+	</style>
+</head>
+<body>
+	
+	<input type="text" id="tag"></input>
+	<div  id="tag-cont"></div>
+	<textarea type="text" name="num" id="hobby"></textarea>
+	<button id="addHobby">添加兴趣爱好</button>
+	<div id="hobby-cont"></div>
+
+	<script type="text/javascript">
+		var tag=document.getElementById("tag");
+		var tagCont=document.getElementById("tag-cont");
+		var hobby=document.getElementById("hobby");
+		var addHobby=document.getElementById("addHobby");
+		var hobbyCont=document.getElementById("hobby-cont");
+
+/*
+*初始化函数 主要定义需要监听的时间 
+*/
+		function init(){
+			var newtag=new Tags();
+			var newhobby=new Tags();
+			tag.onkeydown=function(e){
+				if(e.keyCode==32||e.keyCode==13){
+					var value=tag.value;
+					newtag.addTag(value);
+					tagCont.innerHTML="";
+					
+						var fragment=newtag.show();
+						tagCont.appendChild(fragment)
+					
+				}
+				console.log(e.keyCode);
+			}
+			tagCont.onclick=function(e){
+				var target=e.target;
+				if(target.tagName.toLowerCase()=="span"){
+						newtag.delete(target.innerHTML);
+						tagCont.innerHTML="";
+						var fragment=newtag.show();
+						tagCont.appendChild(fragment)
+				}
+			}
+
+			addHobby.onclick=function(){
+				console.log("addHobby");
+				var value=hobby.value;
+
+				newhobby.addTags(value);
+				hobbyCont.innerHTML="";
+				var fragment=newhobby.show();
+				hobbyCont.appendChild(fragment);
+
+			}
+			hobbyCont.onclick=function(e){
+				var target=e.target;
+				if(target.tagName.toLowerCase()=="span"){
+						newhobby.delete(target.innerHTML);
+						hobbyCont.innerHTML="";
+						var fragment=newtag.show();
+						hobbyCont.appendChild(fragment)
+				}
+			}
+
+		}
+
+		//定义一个tags类
+		function Tags(){
+			
+			this.queue=[];
+		}
+		//删除一个标签
+		Tags.prototype.delete=function(val){
+			
+			this.queue.splice(this.queue.indexOf(val),1);
+		}
+
+		//增加一个标签
+		Tags.prototype.addTag=function(value){
+			
+			this.queue.unshift(value.trim());
+			this.queue=delRepeat(this.queue);
+		}
+		//增加多个标签
+		Tags.prototype.addTags=function(value){
+			//用户输入空格、逗号和回车时，都自动把当前输入的内容作为一个tag放在输入框下面
+			var result=value.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+			console.log(result);
+			
+			if(result.length>10){
+				
+				result=result.slice(result.length-10);
+				
+			}
+			for (var i = 0; i < result.length; i++) {
+				result[i]=result[i].trim();
+				if(result[i]){
+					this.queue.unshift(result[i]);
+				}
+				
+			
+			}
+			this.queue=delRepeat(this.queue);
+		}
+
+	//显示标签或爱好
+		Tags.prototype.show=function(){
+			
+			
+			var fragment=document.createDocumentFragment();
+			
+				for (var k = 0; k < this.queue.length; k++) {
+					var span=document.createElement("span");
+					span.innerHTML=this.queue[k];
+					
+					fragment.appendChild(span);
+					
+					
+				}
+				return fragment;
+				
+			
+		}
+
+		//数组去重
+		function delRepeat(arr){
+			var res=[];
+			var json={};
+			//console.log(arr.length);
+			for(var i=0;i<arr.length;i++){
+				if(!json[arr[i]]){
+					res.push(arr[i]);
+					json[arr[i]]=1;
+
+				}
+				
+			}
+			
+			return res;
+		}
+
+		
+		init();
+
+	</script>
+</body>
+</html>
