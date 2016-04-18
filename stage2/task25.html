@@ -2,18 +2,19 @@
 	<html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>task24:JavaScript和树</title>
+		<title>task25:JavaScript和树</title>
 		<style type="text/css">
 
 		nav{
 			width:300px;
 			margin:0 auto;	
 		}
-		div{
+		/*div{
 			
 			display: inline-block;
+
 			
-		}
+		}*/
 		.search{
 			display: block;
 			margin: 0 auto;
@@ -22,34 +23,39 @@
 		}
 		
 		.a,.b,.c,.d,.e{
+			width:300px;
 			display: flex;
-			justify-content:space-around;
-			align-items: center;
+			-webkit-flex-direction: column; /* Safari */
+  		flex-direction: column;		
 			border:1px solid #7BF0EC;
 			margin:0 5px;
 			background-color: #fff;
+			padding:10px;
+
+
 		}
 
 		.a{
-			
-			height:300px;
+			display: flex;
+			width:300px;
 			
 		}
 		.b{
 			
-			height:250px;
-			
+			width:280px;
+			display: none; 
 		}
 		.c{
-			
-			height:200px;
-			
+			width:260px;	
+			display: none;
 		}
 		.d{
-			height:150px;
+			width:240px;
+			display: none;
 		}
 		.e{
-			height:100px;
+			width:220px;
+			display: none;
 		}
 		</style>
 	</head>
@@ -68,7 +74,7 @@
 	</div>
 
 
-		<div class="a ">a1
+		<div class="a " id="root">a1
 		<div class="b ">b10
 			<div class="c ">c100
 				<div class="d ">d1000</div>
@@ -102,7 +108,7 @@
 		this.queue=[];//存储树的节点元素
 		this.search=[];//查询的节点
 		
-		this.root=document.querySelector(".a");
+		this.root=document.getElementById("root");
 	}
 	
 /*
@@ -114,11 +120,15 @@
 		
 		this.queue.push(rootNode);
 		//获取根结点的子代div元素
-		var div=rootNode.querySelectorAll("."+rootNode.className+">div");
+		var div=rootNode.children;
 		
 		if(div.length){
 			for (var i = 0; i < div.length; i++) {
-				this.deep(div[i]);
+				if(div[i].tagName.toLowerCase()=="div"){
+					
+					this.deep(div[i]);
+				}
+				
 			}
 		}		
 	}
@@ -134,14 +144,17 @@
 		if(nodeArr==this.root){
 			this.queue.push(this.root);
 			
-			this.spread(document.querySelectorAll("."+this.root.className+">div"));
+			this.spread(root.children);
 		}else{
 			
 			//获取根结点的子代div元素
 			if(nodeArr.length){
 				for(var j=0; j<nodeArr.length; j++){
-					this.queue.push(nodeArr[j]);
-					var div=document.querySelectorAll("."+nodeArr[j].className+">div");
+
+					if(nodeArr[j].nodeType==1){
+						this.queue.push(nodeArr[j]);
+					}
+					var div=nodeArr[j].children;
 					for (var i = 0; i < div.length; i++) {
 						subNode.push(div[i]);
 					}
@@ -164,12 +177,46 @@
 		
 		for (var i = 0; i < this.queue.length; i++) {
 			
-			var val=this.queue[i].innerHTML.substring(0,this.queue[i].innerHTML.indexOf("<div>"));
+			var val=this.queue[i].firstChild.nodeValue.replace(/(^\s*)|(\s*$)/g, "");
 			
 			 if(reg.test(val)){
 			 	this.search.push(this.queue[i]);
 			 }
 		}
+	}
+
+	
+	/**
+	 * 实现树的折叠与打开
+	 * @param  {元素节点} node 点击的元素
+	 */
+	Tree.prototype.toggleTree=function(node){
+
+		var div=node.children;
+		//如果存在OPEN类 将该子元素隐藏，并将open类删除
+		
+		if(findClass(node,"open")){
+			console.log(node);	
+			for (var i = 0; i < div.length; i++) {
+				if(div[i].tagName.toLowerCase()=="div"){
+					div[i].style.display="none";
+				}
+				
+			}
+			node.className=deleteClass(node,"open");
+		}else{
+			console.log(node.children);
+			//如果不存在open类 将该子元素显示 并添加open类
+			for (var i = 0; i < div.length; i++) {
+				if(div[i].tagName.toLowerCase()=="div"){
+					div[i].style.display="flex";
+				}
+			} 
+			node.className=addClass(node,"open");
+					
+		}
+
+		
 	}
 
 	/**
@@ -188,16 +235,22 @@
 		var i=0;
 		
 		timer=setInterval(function(){
+
 			if (i<queue.length) {
-				if(i>0&&search.indexOf(queue[i-1])<0){
-					queue[i-1].style.backgroundColor = "#FFFFFF";
+
+				if(search.indexOf(queue[i])<0){
+					
+					if(!findClass(queue[i],"open")){
+						queue[i].style.display="flex";
+						queue[i].className=addClass(queue[i],"open");
+					}
+				}else{
+					console.log("red");
+					queue[i].style.color="red";
+					clearInterval(timer);		
 				}
-				
-				queue[i].style.backgroundColor="#6AE3A5";
 				i++;
 			}else{
-				//console.log(i);
-				queue[i-1].style.backgroundColor='#FFFFFF';
 				clearInterval(timer);		
 			}
 	
@@ -243,9 +296,9 @@
 			
 			var target=e.target;
 			if(target.getAttribute("type")=="button"){
-				console.log(target);
+			
 				var classN=target.className;
-				console.log(classN);
+				
 				switch (classN){
 					case "deep" : {tree.queue=[];tree.deep(tree.root);}break;
 					case "spread" : {tree.queue=[];tree.spread(tree.root);}break;
@@ -262,10 +315,11 @@
 		document.getElementById("searchButton").onclick=function(){
 			tree.queue=[];
 			
-			tree.deep(tree.root);
+			tree.spread(tree.root);
 			tree.searchF();
 			tree.show();
 		}
+
 		/**
 		 * 树的根结点绑定事件 当点击树的元素时 选中节点背景发生变化 当点击添加按钮时 节点添加子元素 点击删除按钮时 删除当前节点及其子节点
 		 */
@@ -276,7 +330,11 @@
 				div[i].style.backgroundColor="#fff";
 			}
 			var target=e.target;
+
+			//console.log(target);
 			target.style.backgroundColor='#59E46F';
+
+			tree.toggleTree(target);
 
 			var addButton=document.querySelector(".add-button");
 			addButton.onclick=function(){
@@ -297,6 +355,47 @@
 	}
 
 	init();
+
+function findClass(node,classN){
+	var flag=false;
+	
+	var classL=node.className.split(/\s+/);
+	console.log(classL);
+	for(var i=0,len=classL.length;i<len;i++){
+		
+		if(classL[i]==classN){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
+
+function deleteClass(node,classN){
+	
+	var classL=node.className.split(/\s+/);
+	var pos=-1;
+	
+	var len=0;
+	for (var i = 0; i < len; i++) {
+		if(classL[i]==classN){
+			pos=i;
+			break;
+		}
+	}
+
+	classL.splice(pos,1);
+	classL=classL.join(" ");
+	return classL;
+}
+
+function addClass(node,classN){
+	var classL=node.className.split(/\s+/);
+	classL.push(classN);
+	classL=classL.join(" ");
+	return classL;
+}
+
 	</script>
 	</body>
 	</html>	
