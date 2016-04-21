@@ -22,7 +22,7 @@ function init(){
 	ctx.arc(400,400,50,0,2*Math.PI,false);
 	ctx.fillStyle="#2EACEB";
 	ctx.fill();
-	airship=new Airship(100);
+	airship=new Airship(300);
 	//ane=new aneObj;
 	airship.init();
 }
@@ -49,7 +49,7 @@ function gameloop(){
 	if(deltaTime>40){
 		deltaTime=40;
 	}
-	//console.log("cccccccc")
+	ctx.clearRect(0,0,800,800);
 	airship.fly();
 	airship.show();
 }
