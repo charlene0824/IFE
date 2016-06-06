@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实现表单自动生成工厂</title>
+	<style type="text/css">
+		body{
+			font-size:14px;
+			font-family: '微软雅黑'
+		}
+		.cont{
+			vertical-align: top;
+		}
+		form{
+			width:340px;
+			float:left;
+		}
+		section{
+			border:1px solid black;
+			border-radius: 10px;
+
+			width:700px;
+			display: inline-block;
+		}
+		fieldset{
+			width:300px;
+			margin-bottom: 10px;
+		}
+		.line{
+			margin:5px;
+		}
+		label{
+			display: inline-block;
+			padding-right: 5px;
+			width:80px;
+			text-align: right;
+
+		}
+		input[type="number"]{
+			width:40px;
+		}
+		.add{
+			background-color: #15A7E9;
+			padding:10px 20px;
+			outline: none;
+			border:none;
+			border-radius: 5px;
+
+		}
+	</style>
+</head>
+<body>
+<div class='cont'>
+<form>
+	<fieldset >
+	<legend>类型</legend>
+		<input type="radio" name="type" value='text'>文本框
+		<input type="radio" name="type" value='radio'>单选框
+		<input type="radio" name="type" value='checkbox'>多选框
+		<input type="radio" name="type" value='select'>选择框
+		<input type="radio" name="type" value="textbox">文本域
+		<input type="radio" name="type" value="button">按钮
+
+	</fieldset>
+
+	<fieldset >
+	<legend>配置</legend>
+		<div class='line'><label>标签名：</label><input type="text" name="label"></div>
+		<div class='line'><label>规则提示：</label><input type="text" name="rules-tip"></div>
+		<div class="line"><label>通过提示：</label><input type="text" name="success"></div>
+		<div class="line"><label>失败提示：</label><input type="text" name="fail"></div>
+		<div class="line"><label>样式：</label>
+		<select ><option>样式一</option><option>样式二</option></select></div>
+	</fieldset>
+
+	<fieldset >
+	<legend>规则</legend>
+		<input type="radio" name="rules" value='num'>数字
+		<input type="radio" name="rules" value='email'>邮箱
+		<input type="radio" name="rules" value='text'>文字
+		<input type="radio" name="rules" value='phone'>电话号码
+	</fieldset>
+
+	<fieldset >
+	<legend>长度限制</legend>
+		<label>字符范围：</label><input type="number" name="min" value='4'><span>--</span><input type="number" name="max" value="16">
+	</fieldset>
+	<button class='add' id='add'>创建表单元素</button>
+</form>
+<section>
+	<h2>表单展示区</h2>
+</section>
+<script type="text/javascript">
+	
+</script>
+</div>
+</body>
+</html>
