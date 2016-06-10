@@ -48,12 +48,18 @@ Block.prototype.go = function(){
 	}
 
 	//控制位置
-	if(parseInt(this.top) > ctxWidth || parseInt(this.left) >ctxWidth) {
+	if(parseInt(this.top) > ctxWidth){
 		this.top = ctxWidth ;
+	}
+	if(parseInt(this.left) >ctxWidth) {
+		
 		this.left = ctxWidth ;
 	}
-	if(parseInt(this.top) < 0 || parseInt(this.left) <0){
+	if(parseInt(this.top) < 0){
 		this.top = 0;
+	} 
+	if(parseInt(this.left) <0) {
+		
 		this.left = 0;
 	}
 

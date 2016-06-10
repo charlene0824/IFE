@@ -18,6 +18,13 @@
 	.aside input{height:30px; border-radius: 5px;outline: none;border:1px solid #eee;}
 	.aside button{height:30px;background-color: #8AF1CB;border:none;outline: none;border-radius: 5px}
 	.aside button:hover{opacity: .6 ;}
+	/*文本框样式*/
+	/*.order-cont{vertical-align: top;}*/
+	.line{width:40px;line-height: 20px;float:left; height:200px;overflow: hidden;position:relative;}
+	.in-line{width:55px;line-height: 20px;overflow-y: scroll;overflow-x: hidden;position:absolute;}
+	.text{background-color: #000;color:#56EA86;width:400px;height:200px;overflow-y: scroll;line-height: 20px;}
+	.line-num{width:40px; height:20px;text-align: center;color:#ccc;display: inline-block;};
+
 	</style>
 </head>
 <body>
@@ -28,18 +35,27 @@
 </div>
 
 <div class = 'aside'>
-	<input type="text" name="order"  id = 'order'>
+	<input type="textarea" name="order"  id = 'order'>
 	<button id='send'>发布命令</button>
 	<ul>		
-    <li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
-    <li>TRA LEF：向左转（逆时针旋转90度）</li>
-    <li>TRA RIG：向右转（顺时针旋转90度）</li>
-    <li>TRA BAC：向右转（旋转180度）</li>
+    <li>TRA LEF：向屏幕的左侧移动一格，方向不变</li>
+    <li>TRA TOP：向屏幕的上面移动一格，方向不变</li>
+    <li>TRA RIG：向屏幕的右侧移动一格，方向不变）</li>
+    <li>TRA BOT：向屏幕的下面移动一格，方向不变</li>
+    <li>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+    <li>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</li>
+    <li>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+    <li>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</li>
     <li>不区分大小写</li>
 
 	</ul>
 </div>
+<div id = 'order-cont'></div>
+
+
+
 </section>
+<script type="text/javascript" src='textArea.js'></script>
 <script type="text/javascript" src='block.js'></script>
 <script type="text/javascript" src='script.js'></script>
 </body>
